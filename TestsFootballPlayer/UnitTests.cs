@@ -5,44 +5,74 @@ namespace TestsFootballPlayer;
 [TestClass]
 public class UnitTests
 {
-
-    readonly FootballPlayer _player = new() { Id = 1, Name = "M", Age = 30, ShirtNumber = 10 };
-
     [TestMethod]
     public void ValidateName_OutOfRange()
     {
+        //Arrange
+        FootballPlayer player = new FootballPlayer{ Id = 1, Name = "M", Age = 30, ShirtNumber = 10 };
         //Assert
-        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _player.ValidateName());
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => player.ValidateName());
     }
-
 
     [TestMethod]
     public void ValidateName_Null()
     {
         //Arrange
-        _player.Name = null;
+        FootballPlayer player = new FootballPlayer{ Id = 1, Name = "M", Age = 30, ShirtNumber = 10 };
+        
+        //Act
+        player.Name = null;
 
         //Assert
-        Assert.ThrowsException<ArgumentNullException>(() => _player.ValidateName());
+        Assert.ThrowsException<ArgumentNullException>(() => player.ValidateName());
     }
 
     [TestMethod]
     public void ValidateAge()
     {
         //Arrange
-        _player.Age = 0;
+        FootballPlayer player = new FootballPlayer{ Id = 1, Name = "M", Age = 30, ShirtNumber = 10 };
+        
+        //Act
+        player.Age = 0;
 
         //Assert
-        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _player.ValidateAge());
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => player.ValidateAge());
     }
 
     [TestMethod]
     public void ValidateShirtNumber()
     {
-        _player.ShirtNumber = 100;
-        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _player.ValidateShirtNumber());
+        //Arrange
+        FootballPlayer player = new FootballPlayer{ Id = 1, Name = "M", Age = 30, ShirtNumber = 10 };
+        
+        player.ShirtNumber = 100;
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => player.ValidateShirtNumber());
 
-        _player.ShirtNumber = 0;
-        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _player.ValidateShirtNumber());
+        player.ShirtNumber = 0;
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => player.ValidateShirtNumber());
+    }
+    
+    [TestMethod]
+    public void ValidateToStringMethod()
+    {
+        //Arrange
+        FootballPlayer player = new() { Id = 1, Name = "Max", Age = 30, ShirtNumber = 10 };
+        
+        //Act
+        string str = player.ToString();
+        
+        //Assert
+        Assert.AreEqual("1 Max 30 10", str);
+    }
+    
+    [TestMethod]
+    public void ValidateValidator()
+    {
+        //Arrange
+        FootballPlayer player = new() { Id = 1, Name = "Max", Age = 30, ShirtNumber = 10 };
+        
+        //Act
+        player.Validator();
     }
 }
